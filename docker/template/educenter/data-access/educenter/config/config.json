@@ -1,0 +1,8 @@
+{
+    "data_access_layer": {
+        "port": "8000",
+        "mongo_host": "172.17.0.1",
+        "mongo_db": "tiup-data-access-layer-prod",
+        "scode_to_sid_url" : "http://ruc.demo.tiup.ren/CrossDomainData/Index/getSchoolidByAbbr/abbr/"
+    }
+}

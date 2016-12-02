@@ -1,0 +1,14 @@
+dlog.set_center("172.16.192.6")
+
+ignore_tags = {}
+
+
+function filter(thelog)
+        local tag = thelog.tag
+        local id = thelog.identity
+
+        if ignore_tags[tag] then
+                return true
+        end
+
+end

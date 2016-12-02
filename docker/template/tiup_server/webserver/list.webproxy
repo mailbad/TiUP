@@ -1,0 +1,14 @@
+IDGenerator:tcp -h idserver -p 12114
+DBProxy:tcp -h dbproxy -p 12115
+
+UserSearcher:tcp -h usersearch -p 12005
+TagSearcher:tcp -h tagsearch -p 12010
+
+Storage#photo_0:tcp -h store -p 13050
+Storage#logo_0:tcp -h store -p 13050
+Storage#app_0:tcp -h store -p 13050
+Storage#appfile_0:tcp -h store -p 13050
+Storage#file_0:tcp -h store -p 13050
+Storage#group_0:tcp -h store -p 13050
+Storage#publichomepage_0:tcp -h store -p 13050
+Storage#privacy_0:tcp -h store -p 13050

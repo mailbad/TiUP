@@ -1,0 +1,18 @@
+[
+	{
+	    "type": "connector",
+	    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl29w4rxn"
+	},
+	{
+	    "type": "gate",
+	    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaagl3122asd"
+	},
+	{
+	    "type": "chat",
+	    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpaag12332dfs"
+	},
+	{
+	    "type": "notice",
+	    "token": "agarxhqb98rpajloaxn34ga8xrunpagkjwlaw3ruxnpa12333fggss"
+	}
+]

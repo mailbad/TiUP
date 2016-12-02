@@ -1,0 +1,3 @@
+#! /bin/sh
+
+java  -Xmx512M -cp lib/tagsearch.jar:lib/util.jar:lib/lucene-core-2.3.0.jar:/usr/share/java/Ice-3.4.2.jar:$CLASSPATH Indexer $1 $2

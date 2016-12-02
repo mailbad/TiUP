@@ -1,0 +1,27 @@
+{
+  "Usage": "EndpointUrl should be URL to TiUP User Center and https port of TiUP User Center should be used in EndpointUrl.",
+  "Oauth": {
+    "ClientID": "uc.tiup.cn",
+    "ClientSecret": "U8f8hgtVmMREORePbe3wFmQhqW35y8Nek6Yy",
+    "Endpoint": {
+      "AuthURL": "http://uc.demo.tiup.ren/oauth2/authorize",
+      "TokenURL": "http://uc.demo.tiup.ren/oauth2/token",
+      "RevokeURL": "http://uc.demo.tiup.ren/oauth2/revoke"
+    },
+    "RedirectURL": "/sso/login",
+    "Scopes": [
+      "all"
+    ]
+  },
+  "Account": {
+    "LogoutURL": "http://uc.demo.tiup.ren/account/logout"
+  },
+  "Port": 80,
+  "UrlPrefix": "/sso",
+  "CookieHostMapper": {
+    "tiup.us": "tiup.us",
+    "tiup.cn": "tiup.cn",
+    "v.ruc.edu.cn": "ruc.edu.cn",
+    "tiup.bfsu.edu.cn": "bfsu.edu.cn"
+  }
+}

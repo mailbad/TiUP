@@ -1,0 +1,14 @@
+taipei16 -taipei-fixed-medium-r-normal--16-150-75-75-c-160-big5-0 !ByRPM
+taipeik20 -taipei-fixed-medium-r-normal--20-200-75-75-c-200-big5-0 !ByRPM
+taipeim20 -taipei-fixed-medium-r-normal--20-200-75-75-c-200-big5-0 !ByRPM
+taipeik24 -taipei-fixed-medium-r-normal--24-240-75-75-c-240-big5-0 !ByRPM
+taipeim24 -taipei-fixed-medium-r-normal--24-240-75-75-c-240-big5-0 !ByRPM
+-taipei-ming-medium-r-normal--16-160-75-75-c-160-big5-0 taipei16 !ByRPM
+-taipei-ming-medium-r-normal--20-200-75-75-c-200-big5-0 taipeim20 !ByRPM
+-taipei-ming-medium-r-normal--24-240-75-75-c-240-big5-0 taipeim24 !ByRPM
+-vga-fixed-medium-r-normal--24-230-75-75-c-120-iso8859-1 vga12x24 !ByRPM
+vga8x16 -sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1 !ByRPM
+8x16 -sony-fixed-medium-r-normal--16-120-100-100-c-80-iso8859-1 !ByRPM
+-default-ming-medium-r-normal--16-160-72-72-c-160-big5-0 taipei16 !ByRPM
+-default-ming-medium-r-normal--20-200-72-72-c-200-big5-0 taipeim20 !ByRPM
+-default-ming-medium-r-normal--24-240-72-72-c-240-big5-0 taipeim24 !ByRPM

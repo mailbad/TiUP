@@ -1,0 +1,44 @@
+{
+
+	"mysql_host":"172.17.0.1",
+	"mysql_port":"3306",
+	"mysql_username":"july_dc",
+	"mysql_password":"july_dc",
+	"mysql_db":"july_dc",
+
+	"get_new_uid":"http://ucprovider:80/api/v1/users",
+	"get_new_rid":"http://ucprovider:80/api/v1/users/{uid}/profiles",
+	"put_user_by_uid":"http://ucprovider:80/api/v1/users/{uid}",
+	"get_profiles_by_uid":"http://ucprovider:80/api/v1/users/{uid}/profiles",
+	"put_profiles_by_profileid":"http://ucprovider:80/api/v1/users/{uid}/profiles/{id}",
+	"delete_profiles_by_profileid":"http://ucprovider:80/api/v1/users/{uid}/profiles/{id}",
+	"add_profile_by_uid":"http://ucprovider:80/api/v1/users/{uid}/profiles",	
+	"add_protocol_with_uid":"http://ucprovider:80/api/v1/users/{uid}/agreeprovision/{protocol_id}",
+	
+	"cache_url":"127.0.0.1:11211",	
+
+	"listen_port":"8081",
+	"listen_rpc_port":"9091",
+
+	"amqp_uri":"amqp://devdc_fenbushi:devdc_fenbushi@10.21.5.35:5672/datacenter_host",
+
+	"log_path" : "/var/www/html/goPros/src/datacenter-july/log/",
+
+	"test_info" : {
+		"test_host" : "http://dev-dc.tiup.us",
+		"test_port"	: ":8081",
+		"test_api_version" : "/v1"
+	},
+	"redis_config" :{
+		"db" : 0,
+		"port" : 6379,
+		"host" : "10.21.5.35",
+		"password": ""
+	},
+
+	"uc_create_school_url":"http://apis.tiup.us:2080/api/v3/linkedaccounthost",
+	"uc_add_account_url":"http://apis.tiup.us:2080/api/v3/account",
+	"uc_get_account_url":"http://apis.tiup.us:2080/api/v3/account",
+	"uc_patch_account_url":"http://apis.tiup.us:2080/api/v3/account/{uid}",
+	"uc_get_account_by_uid_url":"http://apis.tiup.us:2080/api/v3/account/{uid}"
+}

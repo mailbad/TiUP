@@ -1,0 +1,14 @@
+
+IDGeneratorAdapter.Endpoints=tcp -p 12114
+
+IDGeneratorAdapter.ThreadPool.Size=10
+IDGeneratorAdapter.ThreadPool.SizeMax=100
+
+IDGenerator.DBSetting=mysql://tiup:tiup@172.17.0.1:3306/tiup_config
+
+Ice.Warn.Connections=1
+Ice.ACM.Server=10
+
+#Ice.Trace.Network=1
+#Ice.Trace.Protocol=1
+

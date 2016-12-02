@@ -1,0 +1,22 @@
+#FROM tiup:centos6.7-new
+FROM tiup:c67
+
+#RUN rpm -ivh http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm  && yum clean all && yum makecache && yum install mysql-community-server
+
+#my.cnf
+
+#/etc/init.d/mysqld start
+
+#/usr/bin/mysqladmin -u root password 'new-password'
+
+/data/mysql/data
+
+#chown -R mysql.mysql /data/mysql/data
+
+#/usr/bin/mysql_install_db --rpm --datadir=/var/lib/mysql --user=mysql --datadir=/data/mysql/data
+
+
+/usr/bin/mysqld_safe --defaults-file=/etc/my.cnf
+
+#修改mysql5.7 安全策略 为low
+#set global validate_password_policy=0;

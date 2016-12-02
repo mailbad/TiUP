@@ -1,0 +1,7 @@
+#!/bin/sh
+commanddir=/tiup
+ 
+ java  -Xmx512M -cp $commanddir/lib/tagsearch.jar:$commanddir/lib/util.jar:$commanddir/lib/lucene-core-2.3.0.jar:/usr/share/java/Ice-3.4.2.jar:$CLASSPATH TagSearchServer $commanddir/config.tagsearch &
+ CHILD=$!
+ trap "kill $CHILD" 1 2 3 15
+ wait $CHILD

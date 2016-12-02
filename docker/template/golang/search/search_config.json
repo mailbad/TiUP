@@ -1,0 +1,11 @@
+{
+  "addr":":3000",
+  "index": "/tiup/data",
+  "static": "/tiup/static",
+  "database": {
+    "usage": "mongodb url and name",
+    "url": "localhost",
+    "name": "index"
+  },
+  "index_mapping":"/tiup/index_mapping.json"
+}

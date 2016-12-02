@@ -1,0 +1,11 @@
+{
+        "database": {
+                "host": "172.17.0.1",
+                "password": "",
+                "port": 27017
+        },
+        "apiserver": {
+                "host": "http://demo.tiup.ren",
+                "secret": "impomelo"
+        }
+}

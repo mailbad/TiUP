@@ -1,0 +1,22 @@
+
+DBProxyAdapter.Endpoints=tcp -p 12115
+
+#DBProxyAdapter.ThreadPool.Size=32
+#DBProxyAdapter.ThreadPool.SizeMax=300
+DBProxyAdapter.ThreadPool.Size=500
+DBProxyAdapter.ThreadPool.SizeMax=2000
+DBProxyAdapter.ThreadPool.StackSize=4096000
+
+DBProxy.DBSetting=mysql://tiup:tiup@172.17.0.1:3306/tiup_config
+
+#DBProxy.DBConnection.MaxSize = 50 
+#DBProxy.DBConnection.MaxSize = 80 
+DBProxy.DBConnection.MaxSize = 200 
+
+Ice.Warn.Connections=1
+
+Ice.ACM.Server=10
+
+#Ice.Trace.Network=1
+#Ice.Trace.Protocol=1
+

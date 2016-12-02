@@ -1,0 +1,18 @@
+
+StorageAdapter.Endpoints=tcp -p 13050
+
+StorageAdapter.ThreadPool.Size=10
+StorageAdapter.ThreadPool.SizeMax=100
+StorageAdapter.ThreadPool.StackSize=1024000
+
+
+Storage.RootDir=/tiup/FILE/
+Storage.FileOwner=apache
+Storage.FileGroup=apache
+
+Ice.Warn.Connections=1
+Ice.ACM.Server=10
+
+#Ice.Trace.Network=1
+#Ice.Trace.Protocol=1
+

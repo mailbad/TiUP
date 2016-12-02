@@ -1,0 +1,34 @@
+{
+        "uc_host" :"http://uc.demo.tiup.ren",
+        "client_id":"cn.tiup.sns",
+        "client_secret":"6fd877fd6c16e5180f0b98fd335ca8f2593b92e83f7c366b4875151f0d5f85e6",
+
+        "mysql_host":"172.17.0.1",
+        "mysql_port":"3306",
+        "mysql_username":"july_dc",
+        "mysql_password":"july_dc",
+        "mysql_db":"july_dc",
+
+        "get_new_uid":"http://uc.demo.tiup.ren/api/v1/users",
+        "get_new_rid":"http://uc.demo.tiup.ren/api/v1/users/{uid}/profiles",
+        "put_user_by_uid":"http://uc.demo.tiup.ren/api/v1/users/{uid}",
+        "get_profiles_by_uid":"http://uc.demo.tiup.ren/api/v1/users/{uid}/profiles",
+        "put_profiles_by_profileid":"http://uc.demo.tiup.ren/api/v1/users/{uid}/profiles/{id}",
+	"delete_profiles_by_profileid":"http://uc.demo.tiup.ren/api/v1/users/{uid}/profiles/{id}",
+	"add_profile_by_uid":"http://uc.demo.tiup.ren/api/v1/users/{uid}/profiles",	
+	
+        "cache_url":"memcached:11211",
+
+        "listen_port":"8081",
+	"listen_rpc_port":"9091",
+
+        "amqp_uri":"amqp://tiup:tiup@rabbitmq:5672/datacenter_host",
+
+	"log_path":"/tiup/logs/datacenter-july/",
+
+        "test_info" : {
+                "test_host" : "127.0.0.1",
+                "test_port"     : ":8081",
+                "test_api_version" : "/july"
+        }
+}

@@ -1,0 +1,7 @@
+{
+    "account-service": {
+        "port": "8100",
+        "data-access-layer": "http://edu-data:8000",
+        "tiup": "http://api.demo.tiup.ren"
+    }
+}

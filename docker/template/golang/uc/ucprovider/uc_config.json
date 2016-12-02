@@ -1,0 +1,9 @@
+{
+  "Port": 80,
+  "UsersDataSource": {
+    "Usage": "Change DataSourceName and MaxOpenConns accordingly.",
+    "DriverName": "postgres",
+    "DataSourceName": "host=172.17.0.1 user=postgres password=postgres dbname=usercenter_v2 sslmode=disable",
+    "MaxOpenConns": 100
+  }
+}

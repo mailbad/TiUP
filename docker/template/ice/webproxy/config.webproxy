@@ -1,0 +1,22 @@
+
+WebProxyAdapter.Endpoints=tcp -p 10000
+
+WebProxyAdapter.ThreadPool.Size=50
+WebProxyAdapter.ThreadPool.SizeMax=300
+
+WebProxy.ListFile = /tiup/list.webproxy
+WebProxy.CallTimeWarn = 1000
+WebProxy.LifeSpanTime = 900
+Sproxy.User = www
+Sproxy.Group = www
+
+Ice.Warn.Connections=1
+
+Ice.ACM.Server=10
+Ice.ACM.Client=30
+
+Ice.MessageSizeMax=4096
+
+#Ice.Trace.Network=1
+#Ice.Trace.Protocol=1
+

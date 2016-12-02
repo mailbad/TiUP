@@ -1,0 +1,27 @@
+{
+  "port":80,
+  "redis_addr":"redis:6379",
+  "mongo_addr":"172.17.0.1",
+  "security_key": "some key for hash generate",
+  "static": "",
+  "db_names": {
+    "apis": "apis",
+    "oauth":  "apis-oauth"
+  },
+  "apis_port":8021,
+  "tls":{
+    "cert": "/home/dev/config/ssl/dev.leenanxi.com.crt",
+    "key": "/home/dev/config/ssl/dev.leenanxi.com.key",
+    "enable": false
+  },
+  "providers": {
+    "uc": "http://ucprovider",
+    "dc": "http://ta-1:1994",
+    "adapter": "http://adapters:8022"
+  },
+  "sso": {
+    "reverse":"http://ucsso",
+    "info":"http://ucauth/oauth2/tokeninfo"
+  },
+  "devmode": false
+}

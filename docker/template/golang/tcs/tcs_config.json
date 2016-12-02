@@ -1,0 +1,27 @@
+{
+  "port":80,
+  "db_url":"172.17.0.1",
+  "db_name" : "push",
+  "security_key": "kYHT4_T9aWosx12XbSf",
+  "admin_auth": "3rxk2DvxW",
+  "static": "",
+  "uploads": "",
+  "oauth_tiup": {
+    "client_id": "tcs-0.apps.tiup.cn",
+    "client_secret": "wFmQhqW35y8Nek6YySR9uy",
+    "endpoint": {
+      "auth_url": "http://open.demo.tiup.ren/o/oauth2/authorize",
+      "token_url":"http://open.demo.tiup.ren/o/oauth2/token",
+      "info_url": "http://rpacl.demo.tiup.ren/oauth2/v1/userinfo"
+    },
+    "redirect_url": "http://tcs.demo.tiup.ren/api/v1/o/oauth2client/tiup/callback",
+    "scopes": [
+      "userinfo"
+    ]
+  },
+  "tls":{
+    "cert": "/home/dev/config/ssl/dev.leenanxi.com.crt",
+    "key": "/home/dev/config/ssl/dev.leenanxi.com.key",
+    "enable":false
+  }
+}

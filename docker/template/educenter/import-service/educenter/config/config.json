@@ -1,0 +1,7 @@
+{
+    "import-service": {
+        "port": "8233",
+        "data-access-layer": "http://edu-data:8000",
+        "tiup": "http://demo.tiup.ren"
+    }
+}

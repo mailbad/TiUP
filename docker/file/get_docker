@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+docker_uri="docker-reg.tiup.ren"
+DOCKER_IMAGES="$(curl ${docker_uri}/v2/_catalog 2>/dev/null|jq -M '.repositories'|sed -e 's/\[//g' -e 's/\]//g' -e '/^$/d' -e 's/,//g' -e 's/"//g' -e 's/ //g')"
+
+for i in ${DOCKER_IMAGES}
+	do
+	for e in $(curl ${docker_uri}/v2/${i}/tags/list 2>/dev/null|jq -M '.tags'|sed -e 's/\[//g' -e 's/\]//g' -e '/^$/d' -e 's/,//g' -e 's/"//g' -e 's/ //g')
+		do
+		echo -e	 "${docker_uri}		${i}:${e}"
+	done
+done

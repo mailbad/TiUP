@@ -1,0 +1,56 @@
+{
+  "Port":80,
+  "SecurityKey": "some key for hash generate",
+  "UCProvider":"http://ucprovider",
+  "Host":"http://uc.demo.tiup.ren",
+  "TLS":{
+    "Cert":"/tiup/config/ssl.crt",
+    "Key": "/tiup/config/server.key",
+    "Enable": false
+  },
+  "LinkLogin": {
+    "Usage":"to login a account with a link",
+    "ConfigFile":"",
+    "Enable":true
+  },
+  "AuthDataConfig": {
+    "Usage": "DataSource for Oauth, Account Session and Other.",
+    "MongoAddr": "172.17.0.1",
+    "RedisAddr": "redis:6379"
+  },
+  "LoginPageReverse":"http://demo.tiup.ren/account/login",
+  "ApiAdaptersProvider":"http://adapters:8022",
+  "UCDataConfig": {
+    "Usage": "Change DataSourceName and MaxOpenConns accordingly.",
+    "DriverName": "postgres",
+    "DataSourceName": "host=172.17.0.1 user=postgres password=postgres dbname=usercenter_v2 sslmode=disable",
+    "MaxOpenConns": 300
+  },
+  "OUC": {
+    "Api": {
+      "Usage": "Don't change this.",
+      "User": {},
+      "Client": {}
+    },
+    "OAuth":
+    {
+      "Usage": "Don't change this.",
+      "Authorize":
+      {
+        "AuthorizeMiddleWare":
+        {
+          "LoginUrl": "/account/login",
+          "AuthorizeUrl": "/account/authorize",
+          "DefaultScope": "all"
+        }
+      },
+      "Token":
+      {
+        "ResourceOwnerPasswordCredentialsGrant":
+        {
+          "DefaultScope": "all"
+        }
+      }
+    }
+  }
+}
