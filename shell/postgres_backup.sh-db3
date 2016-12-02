@@ -1,0 +1,8 @@
+#!/bin/bash
+
+Date_Now="$(date +%s)"
+Backup_Dir="/tiup/db_backup"
+
+/usr/bin/pg_dumpall > ${Backup_Dir}/backup_postgres_${HOSTNAME}_${Date_Now}
+
+/usr/bin/rsync -vzrtopg ${Backup_Dir}/backup_postgres_${HOSTNAME}_${Date_Now} ts-2::db_backup/${HOSTNAME} >/dev/null 2>&1

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+lastweek_user="lastweek_user.txt"
+total="全平台用户数"
+lastday="24小时内活跃用户数"
+lastweek="一个周内活跃用户数"
+lastmonth="一个月内活跃用户数"
+lastquater="三个月内活跃用户数"
+
+#curl http://localhost:1994/api/v1/status 
+#{"total":213301,"lastday":11688,"lastweek":20910,"lastmonth":28723,"lastquater":43849}
+
+#for i in total lastday lastweek lastmonth lastquater
+for i in total lastquater lastmonth lastweek lastday
+do
+	user_number=$(curl -sSL http://localhost:1994/api/v1/status |awk -F '"'$i'":' '{print $2}'|cut -d',' -f1|sed 's/}//g')
+	lastweek_user_number=$(grep $i ${lastweek_user}|grep -v "^#"|cut -d ':' -f2|sed 's/ //g')
+	eval echo -n "\$${i}: "
+	echo "${user_number}(${lastweek_user_number})"
+	[ -z "$1" ] || {
+	cp -arf lastweek_user.txt lastweek_user.txt.$(date +%s)
+	sed -i  "s/${i}: .*/${i}: $user_number/g" lastweek_user.txt
+	}
+done

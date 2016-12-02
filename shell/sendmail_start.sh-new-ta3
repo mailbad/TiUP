@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+Script_Path="$(cd $(dirname ${0});pwd -P)"
+SendEMAIL="${Script_Path}/sendEmail"
+# Script Thread Number
+Script_Thread_Num="1"
+# Script TMP DIR
+Script_Fifo_Dir="/tmp/Export_RCPT_FIFO"
+#定义高亮显示输出
+export ECHO_OK="[\033[0;32m OK \033[0m]"
+export ECHO_FAIL="[\033[0;31m FAIL \033[0m]"
+
+INIT_FIFO () {
+        local INIT_COMMAND="${1}"
+        local INIT_FOR_COMMAND="${2}"
+        [ -d "${Script_Fifo_Dir}" ] || mkdir -p ${Script_Fifo_Dir}
+        local Script_Fifo_File="${Script_Fifo_Dir}/$$.pid"
+        mkfifo ${Script_Fifo_File}
+        exec 6<>"${Script_Fifo_File}"
+        rm ${Script_Fifo_File}
+        for (( i = 0; i < ${Script_Thread_Num} ; i++ )); do
+                echo >&6
+        done
+        wait
+
+        for Script_Thread in ${INIT_FOR_COMMAND}; do
+        read -u6
+        {
+                ${INIT_COMMAND}
+        wait;echo >&6
+        } &
+        done
+        wait;exec 6>&-
+        return 0
+}
+
+SENDEMAIL () {
+	if [ "$(grep $Script_Thread ${Script_Path}/log_sendmail.log |grep OK |wc -l)" -eq 0 ];then
+		${SendEMAIL} -f v@ruc.edu.cn -t ${Script_Thread} -s smtp.ruc.edu.cn -u "中国人民大学祝各位校友新年快乐！" -xu v@ruc.edu.cn -xp FangmRByct5 -o message-charset=utf-8 -o message-file="${Script_Path}/test.mail" -o message-content-type=html -a ${Script_Path}/ruc-2016.pdf > /dev/null 2>&1
+		if [ $? -eq 0 ];then
+			echo -e $(date +%s) $ECHO_OK $Script_Thread sendmail ok ! >> ${Script_Path}/log_sendmail.log
+		else
+			echo -e $(date +%s) $ECHO_FAIL $Script_Thread sendmail fail ! >> ${Script_Path}/log_sendmail.log
+		fi
+		sleep 2
+	else
+		echo -e  $(date +%s) $Script_Thread skip ! >> ${Script_Path}/log_sendmail.log
+	fi
+	wait
+}
+
+
+INIT_FIFO "SENDEMAIL" "$(cat ${Script_Path}/user_all.txt)"

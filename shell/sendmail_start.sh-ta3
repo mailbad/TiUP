@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+[ -z $1 ] && {
+	echo please input en or cn 
+	exit 1
+}
+XYZABC=$(echo $1|tr a-z A-Z )
+
+Script_Path="$(cd $(dirname ${0});pwd -P)"
+SendEMAIL="${Script_Path}/sendEmail"
+# Script Thread Number
+Script_Thread_Num="1"
+# Script TMP DIR
+Script_Fifo_Dir="/tmp/Export_RCPT_FIFO_${XYZABC}"
+#定义高亮显示输出
+export ECHO_OK="[\033[0;32m OK \033[0m]"
+export ECHO_FAIL="[\033[0;31m FAIL \033[0m]"
+
+INIT_FIFO () {
+        local INIT_COMMAND="${1}"
+        local INIT_FOR_COMMAND="${2}"
+        [ -d "${Script_Fifo_Dir}" ] || mkdir -p ${Script_Fifo_Dir}
+        local Script_Fifo_File="${Script_Fifo_Dir}/$$.pid"
+        mkfifo ${Script_Fifo_File}
+        exec 6<>"${Script_Fifo_File}"
+        rm ${Script_Fifo_File}
+        for (( i = 0; i < ${Script_Thread_Num} ; i++ )); do
+                echo >&6
+        done
+        wait
+
+        #for Script_Thread in ${INIT_FOR_COMMAND}; do
+        #read -u6
+        #{
+        #        ${INIT_COMMAND}
+        #wait;echo >&6
+        #} &
+        #done
+	while read Script_Thread;do
+	read -u6
+	{
+		${INIT_COMMAND}
+	wait;echo >&6
+	} &
+        done < ${INIT_FOR_COMMAND}
+        wait;exec 6>&-
+        return 0
+}
+
+SENDEMAIL_CN () {
+	user_name=$(echo ${Script_Thread}|awk -F';' '{print $1}')
+	user_mail=$(echo ${Script_Thread}|awk -F';' '{print $2}'|sed 's/[[:space:]]//g')
+	user_code=$(echo ${Script_Thread}|awk -F';' '{print $3}')
+	user_rand=$RANDOM
+	[ -f ${Script_Path}/log_sendmail_cn.log ] || touch ${Script_Path}/log_sendmail_cn.log
+	if [ "$(grep -i `echo ${user_mail}|sed 's/[[:space:]]//g'` ${Script_Path}/log_sendmail_cn.log | grep -i "${user_code}" | grep -i OK |wc -l)" -eq 0 ];then
+#		${SendEMAIL} -f v@ruc.edu.cn -t ${Script_Thread} -s smtp.ruc.edu.cn -u "中国人民大学祝各位校友新年快乐！" -xu v@ruc.edu.cn -xp FangmRByct5 -o message-charset=utf-8 -o message-file="${Script_Path}/test.mail" -o message-content-type=html -a ${Script_Path}/ruc-2016.pdf > /dev/null 2>&1
+	sed -e "s/XXX/${user_name}/g" -e "s/123456/${user_code}/g"  ${Script_Path}/china.email > ${Script_Path}/cn_tmp/${user_rand}.test.cn
+		${SendEMAIL} -f noreply@ruc.edu.cn -t ${user_mail} -s smtp.ruc.edu.cn -u "欢迎来到中国人民大学，请激活你的微人大账号" -xu noreply@ruc.edu.cn -xp 'D&#M!><$S9!D:SU.' -o message-charset=utf-8 -o message-file="${Script_Path}/cn_tmp/${user_rand}.test.cn" -o message-content-type=html -a ${Script_Path}/cn1.jpg ${Script_Path}/cn2.jpg > /dev/null 2>&1
+		if [ $? -eq 0 ];then
+			echo -e $(date +%s) $ECHO_OK $user_mail $user_code sendmail ok ! >> ${Script_Path}/log_sendmail_cn.log
+		else
+			echo -e $(date +%s) $ECHO_FAIL $user_mail $user_code sendmail fail ! >> ${Script_Path}/log_sendmail_cn.log
+		fi
+		sleep 2
+	else
+		echo -e  $(date +%s) $user_mail $user_code skip ! >> ${Script_Path}/log_sendmail_cn.log
+	fi
+	rm -rf ${Script_Path}/cn_tmp/${user_rand}.test.cn
+	wait
+}
+
+SENDEMAIL_EN () {
+	user_name=$(echo ${Script_Thread}|awk -F';' '{print $1}')
+	user_mail=$(echo ${Script_Thread}|awk -F';' '{print $2}'|sed 's/[[:space:]]//g')
+	user_code=$(echo ${Script_Thread}|awk -F';' '{print $3}')
+	user_rand=$RANDOM
+	[ -f ${Script_Path}/log_sendmail_en.log ] || touch ${Script_Path}/log_sendmail_en.log
+	if [ "$(grep -i `echo ${user_mail}|sed 's/[[:space:]]//g'` ${Script_Path}/log_sendmail_en.log | grep -i "${user_code}" | grep -i OK |wc -l)" -eq 0 ];then
+	echo $user_mail
+#		${SendEMAIL} -f v@ruc.edu.cn -t ${Script_Thread} -s smtp.ruc.edu.cn -u "中国人民大学祝各位校友新年快乐！" -xu v@ruc.edu.cn -xp FangmRByct5 -o message-charset=utf-8 -o message-file="${Script_Path}/test.mail" -o message-content-type=html -a ${Script_Path}/ruc-2016.pdf > /dev/null 2>&1
+	sed -e "s/xxxxx/${user_name}/g" -e "s/123456/${user_code}/g"  ${Script_Path}/english.email >  ${Script_Path}/en_tmp/${user_rand}.test.en
+		${SendEMAIL} -f noreply@ruc.edu.cn -t ${user_mail} -s smtp.ruc.edu.cn -u "Welcome to Renmin University of China, please complete the pre-registration procedure" -xu noreply@ruc.edu.cn -xp 'D&#M!><$S9!D:SU.' -o message-charset=utf-8 -o message-file="${Script_Path}/en_tmp/${user_rand}.test.en" -o message-content-type=html -a ${Script_Path}/en1.jpg -a ${Script_Path}/en2.jpg > /dev/null 2>&1
+		if [ $? -eq 0 ];then
+			echo -e $(date +%s) $ECHO_OK $user_mail $user_code sendmail ok ! >> ${Script_Path}/log_sendmail_en.log
+		else
+			echo -e $(date +%s) $ECHO_FAIL $user_mail $user_code sendmail fail ! >> ${Script_Path}/log_sendmail_en.log
+		fi
+		sleep 2
+	else
+		echo -e  $(date +%s) $user_mail $user_code skip ! >> ${Script_Path}/log_sendmail_en.log
+	fi
+	rm -rf ${Script_Path}/en_tmp/${user_rand}.test.en
+	wait
+}
+
+
+#INIT_FIFO "SENDEMAIL" "$(cat ${Script_Path}/user_all.txt)"
+#[ $1 == "cn" ] && {
+#	echo 中文邮件已发送完毕 程序关闭
+#	exit 1
+#}
+
+INIT_FIFO "SENDEMAIL_${XYZABC}" "${Script_Path}/user_$1.txt"

@@ -1,0 +1,4 @@
+date_now=$(date +%F)
+/usr/local/bin/proxychains4 /usr/bin/rsync -vzrtopg --exclude="*_tiup-file-storage" /tiup/rsync_backup/ 10.21.5.88::backup/db >> /tiup/logs/rsync_${date_now}.log &
+/usr/local/bin/proxychains4 /usr/bin/rsync -vzrtopg /tiup/rsync_backup/db-4/*_tiup-file-storage 10.21.5.88::backup/db/db-4 >> /tiup/logs/rsync_${date_now}.log &
+find /tiup/rsync_backup/ -type f -mtime +10 -exec rm -rf {} \;

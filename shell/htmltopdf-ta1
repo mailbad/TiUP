@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#by ligp@tiup.us
+SHELL_PATH="/tiup/topdf/wkhtmltox/bin"
+Input_Message="$(awk '{print}')"
+Log_PATH="${SHELL_PATH}/../log"
+File_PATH="$(echo ${Input_Message}|awk '{print $2}')"
+PATH=$PATH:/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DATE_Time=$(date +%s)
+
+echo ${DATE_Time} ${Input_Message} >> ${Log_PATH}/htmltopdf.log
+${SHELL_PATH}/wkhtmltopdf-amd64  ${Input_Message} >> ${Log_PATH}/htmltopdf.log 2>&1
+echo ${DATE_Time} ${Input_Message} over >> ${Log_PATH}/htmltopdf.log
+[ -f ${File_PATH} ] || {
+	echo ${DATE_Time} ${Input_Message} err >> ${Log_PATH}/htmltopdf.log
+}
+echo >> ${Log_PATH}/htmltopdf.log
+

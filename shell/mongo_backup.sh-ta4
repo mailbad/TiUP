@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+Data_Name="index"
+Date_Now="$(date +%s)"
+Backup_Dir="/tiup/mongodb_backup"
+Tmp_Dir="${Backup_Dir}/${Date_Now}"
+
+[ -d "${Tmp_Dir}" ] || mkdir -p ${Tmp_Dir}
+for i in ${Data_Name}
+do
+        /usr/bin/mongodump -d $i  -o ${Tmp_Dir} -h 127.0.0.1 > /dev/null 2>&1
+done
+
+cd ${Backup_Dir} ; tar -zcvf ${Date_Now}_mongodb_${HOSTNAME}.tar.gz ${Date_Now} > /dev/null 2>&1 && rm -rf ${Date_Now}
+find /tiup/mongodb_backup -type f -name "*.tar.gz" -mtime +7  -exec rm -rf {} \;
+/usr/bin/rsync -vzrtopg ${Date_Now}_mongodb_${HOSTNAME}.tar.gz ts-2::db_backup/${HOSTNAME}/ > /dev/null 2>&1

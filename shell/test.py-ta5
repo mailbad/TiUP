@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+
+rsyslog_conf = '/etc/rsyslog.conf'
+test = []
+
+def check_rsyslog_conf():
+        for lines in file(rsyslog_conf):
+                if "authpriv.*" in lines and "#" not in lines:
+                        return lines.split()[1]
+
+def check_auth_login():
+        authlog_file = check_rsyslog_conf()
+        for lines in file(authlog_file):
+                if "Accepted" in lines and "sshd" in lines:
+                        #print lines.split()
+                        lines_output = lines.split()
+                        print lines_output[0:3],lines_output[6],lines_output[8],lines_output[10]
+                        #test.append(lines.split())
+
+check_auth_login()
+
+print test

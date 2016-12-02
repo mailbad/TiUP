@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo uid_token > tiup_uid_token.csv
+for i in `cat test-uid.txt`
+do
+	curl -sSL http://ta-11:9443/hacker/token/${i}
+	echo
+	
+done >> tiup_uid_token.csv

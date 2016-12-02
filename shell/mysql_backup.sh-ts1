@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+Data_Name="tiup_config tiup_info"
+Date_Now="$(date +%s)"
+Backup_Dir="/tiup/mysql_backup"
+Tmp_Dir="${Backup_Dir}/${Date_Now}"
+
+[ -d "${Tmp_Dir}" ] || mkdir -p ${Tmp_Dir}
+for i in ${Data_Name}
+do
+        /usr/bin/mysqldump -h db-1 -utiup -pURvXCMU3Mhnx ${i} > ${Tmp_Dir}/${i}.sql
+done
+
+cd ${Backup_Dir} ; tar -zcvf ${Date_Now}_mysql_${HOSTNAME}.tar.gz ${Date_Now} >/dev/null 2>&1 && rm -rf ${Date_Now}
+/usr/bin/rsync -vzrtopg ${Date_Now}_mysql_${HOSTNAME}.tar.gz ts-2::db_backup/${HOSTNAME} 2>&1

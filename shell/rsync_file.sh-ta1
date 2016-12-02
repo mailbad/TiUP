@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+#rsync_cmd="proxychains4 /usr/bin/rsync -vzrtopg --delete"
+rsync_cmd="proxychains4 /usr/bin/rsync -vzrtopg "
+DATE_NOW=$(date +%s)
+
+#static 作废 无用的东西 除js外   打包现已经至10.21.5.88上.
+#${rsync_cmd} /tiup/www/static 10.21.5.88::backup/file/${HOSTNAME}/ >> /tiup/logs/rsync/rsync.${DATE_NOW}.log &
+
+#topdf 程序同步即可 不需要pdf 文件
+#${rsync_cmd} /tiup/topdf/topdf/downloads/pdf 10.21.5.88::backup/file/${HOSTNAME}/topdf/topdf/downloads/ >> /tiup/logs/rsync/rsync.${DATE_NOW}.log &
+
+#同步错误 file 
+#${rsync_cmd} /tiup/file 10.21.5.88::backup/file/${HOSTNAME}/ >> /tiup/logs/rsync/rsync.${DATE_NOW}.log &
+
+
+#放入另一个同步脚本中
+#${rsync_cmd} --include '*.js' --include '*/' --exclude '*' /tiup/www/static/ 10.21.5.88::backup/file/${HOSTNAME}/static-js  >> /tiup/logs/rsync/rsync.${DATE_NOW}.log &
+
+${rsync_cmd} /tiup/www/apps/home/htdocs 10.21.5.88::backup/file/${HOSTNAME}/ >> /tiup/logs/rsync/rsync.${DATE_NOW}.log &
+${rsync_cmd} /tiup/file/privacy/ 10.21.5.88::backup/file/${HOSTNAME}/htdocs/data/privacy >> /tiup/logs/rsync/rsync.${DATE_NOW}.log &

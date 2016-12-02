@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+MYSQL="mysql -uroot -p3GeDV2OO7HGJ52q_hb -D july_dc -s -e "
+
+clean() {
+
+for i in $(${MYSQL} "select uid from s_user_allrole where ctime >= '2015-12-17 00:00:01' and ctime <= '2015-12-17 10:01:00' and schoolid = '233';"|sed 1d)
+do
+	 curl -H "Content-Type: application/json" -X DELETE  http://ta-10:8081/v1/account/$i
+
+done
+
+}
+
+clean

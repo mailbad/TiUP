@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+DATE_NOW=$(date +%s)
+
+/usr/local/bin/proxychains4 /usr/bin/rsync -vzrtopg --include '*.js' --include '*/' --exclude '*' /tiup/www/static/ 10.21.5.88::backup/file/${HOSTNAME}/static-js  >> /tiup/logs/rsync/rsync.${DATE_NOW}.log
+[ $? -ne 0 ] && {
+	echo "err static->static-js " >> /tiup/logs/rsync/rsync.${DATE_NOW}.log
+	echo "err static->static-js "
+	exit 1
+}
+/usr/local/bin/proxychains4 /usr/bin/rsync -vzrtopg --include '*.js' --include '*/' --exclude '*' 10.21.5.88::backup/file/${HOSTNAME}/static-js/ /tiup/www/staticjs/ >> /tiup/logs/rsync/rsync.${DATE_NOW}.log
+[ $? -ne 0 ] && {
+	echo "err static-js->staticjs " >> /tiup/logs/rsync/rsync.${DATE_NOW}.log
+	echo "err static-js->staticjs "
+	exit 1
+}
+chown -R apache.apache /tiup/www/staticjs/
+/usr/bin/rsync -vzrtopg --include '*.js' --include '*/' --exclude '*' /tiup/www/staticjs/ /tiup/www/static/ >> /tiup/logs/rsync/rsync.${DATE_NOW}.log
+[ $? -ne 0 ] && {
+	echo "err staticjs->static " >> /tiup/logs/rsync/rsync.${DATE_NOW}.log
+	echo "err staticjs->static "
+	exit 1
+}
+/usr/local/bin/proxychains4 /usr/bin/rsync -vzrtopg 10.21.5.88::backup/file/${HOSTNAME}/gg-email/ /tiup/www/static/email/ >> /tiup/logs/rsync/rsync.${DATE_NOW}.log
+[ $? -ne 0 ] && {
+	echo "err gg-email->email " >> /tiup/logs/rsync/rsync.${DATE_NOW}.log
+	echo "err gg-email->email "
+	exit 1
+}
+chown -R apache.apache /tiup/www/static/email/
+
+echo js and emailfile ok!

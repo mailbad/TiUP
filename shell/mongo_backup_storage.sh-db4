@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+Data_Name="tiup-file-storage"
+Date_Now="$(date +%s)"
+Backup_Dir="/tiup/mongodb_backup"
+Tmp_Dir="${Backup_Dir}/${Date_Now}_tiup-file-storage"
+
+[ -d "${Tmp_Dir}" ] || mkdir -p ${Tmp_Dir}
+#[ -d "${Backup_Dir}/log" ] || mkdir -p ${Backup_Dir}/log
+for i in ${Data_Name}
+do
+	/usr/bin/mongodump -d $i  -o ${Tmp_Dir} -h 172.16.192.5 > /dev/null 2>&1
+done
+
+	find /tiup/mongodb_backup -type d -name "*_tiup-file-storage" -mtime +5 -exec rm -rf {} \;
+#cd ${Backup_Dir} ; tar -zcvf ${Date_Now}_mongodb_${HOSTNAME}.tar.gz ${Date_Now} > /dev/null 2>&1 && rm -rf ${Date_Now}
+#/usr/bin/rsync -vzrtopg ${Date_Now}_mongodb_${HOSTNAME}.tar.gz ts-2::db_backup/${HOSTNAME} > /dev/null 2>&1
+cd ${Tmp_Dir}/tiup-file-storage ; md5sum files.chunks.bson > files.chunks.bson.md5 ; split -C 1G files.chunks.bson files.chunks.bson. && rm -rf files.chunks.bson
+/usr/bin/rsync -vzrtopg ${Tmp_Dir} ts-2::db_backup/${HOSTNAME}/ > /dev/null 2>&1
+#proxychains4 /usr/bin/rsync -vzrtopg ${Tmp_Dir} 10.21.5.88::db_backup/${HOSTNAME} > ${Backup_Dir}/log/${Date_Now}.log 2>&1

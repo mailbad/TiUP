@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+MYSQL="mysql -uroot -pcXGE1z48zDJ -D tiup_info -s -e "
+MYSQL_R="mysql -uroot -pQMvFXYfFO99 -hta-10 -D july_dc -s -e "
+MYSQL_W="mysql -uroot -pcXGE1z48zDJ -D tiup_info -s -e "
+
+number_modify() {
+#for i in $(${MYSQL} "select * from s_school_department where schoolid = '258';"|sed 1d)
+for i in $(${MYSQL} "select departmentid from s_school_department;"|sed 1d)
+do
+        ${MYSQL} "update s_school_department set members = (select count(*) from s_user_allrole where departmentid = $i) where departmentid = $i"
+done
+}
+
+
+time_build() {
+
+while read line
+do
+	id=$(echo $line|awk '{print $1}')
+	Time=$(echo $line|awk '{print $2,$3}')
+	#$MYSQL_W "update s_school_department set ctime = '$Time' where departmentid = '$id';"
+	$MYSQL_W "update s_school_department_detail set ctime = '$Time' where departmentid = '$id';"
+
+done  < ./tmp.txt
+
+
+}
+
+
+#time_build
+number_modify
